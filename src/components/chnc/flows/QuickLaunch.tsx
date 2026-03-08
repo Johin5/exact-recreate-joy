@@ -37,25 +37,49 @@ const objectives = [
 
 type Phase = 'select' | 'configure' | 'review';
 
-export default function QuickLaunch() {
-  // Phase
-  const [phase, setPhase] = useState<Phase>('select');
-  
-  // Selections
-  const [selectedAssets, setSelectedAssets] = useState<string[]>([]);
-  const [selectedPlatform, setSelectedPlatform] = useState('');
-  const [selectedObjective, setSelectedObjective] = useState('');
-  
+interface QuickLaunchProps {
+  campaign?: {
+    id: string;
+    name: string;
+    platform: 'meta' | 'google';
+    thumbnail: string;
+    approvedDate: string;
+    scheduledOn: string;
+  } | null;
+}
+
+export default function QuickLaunch({ campaign }: QuickLaunchProps) {
+  // Derive objective from campaign name
+  const deriveObjective = (name: string) => {
+    const lower = name.toLowerCase();
+    if (lower.includes('lead')) return 'leads';
+    if (lower.includes('awareness')) return 'awareness';
+    if (lower.includes('traffic')) return 'traffic';
+    if (lower.includes('sales')) return 'sales';
+    if (lower.includes('app')) return 'app_promotion';
+    return '';
+  };
+
+  // Pre-fill from campaign if provided
+  const initialAsset = campaign ? approvedAssets.find(a => a.name === campaign.name)?.id : undefined;
+  const initialPlatform = campaign?.platform || '';
+  const initialObjective = campaign ? deriveObjective(campaign.name) : '';
+
+  const [phase, setPhase] = useState<Phase>(campaign ? 'select' : 'select');
+  const [selectedAssets, setSelectedAssets] = useState<string[]>(initialAsset ? [initialAsset] : []);
+  const [selectedPlatform, setSelectedPlatform] = useState(initialPlatform);
+  const [selectedObjective, setSelectedObjective] = useState(initialObjective);
+
   // Auto-filled config (editable)
   const [budget, setBudget] = useState('500');
   const [budgetType, setBudgetType] = useState('daily');
-  const [startDate, setStartDate] = useState('2025-03-15');
-  const [endDate, setEndDate] = useState('2025-04-15');
+  const [startDate, setStartDate] = useState(campaign?.scheduledOn?.split(' - ')[0]?.split('/').reverse().join('-') || '2025-03-15');
+  const [endDate, setEndDate] = useState(campaign?.scheduledOn?.split(' - ')[1]?.split('/').reverse().join('-') || '2025-04-15');
   const [locations, setLocations] = useState(['Mumbai', 'Delhi', 'Bangalore', 'Chennai']);
   const [ageRange, setAgeRange] = useState('25-55');
   const [gender, setGender] = useState('All');
   const [interests, setInterests] = useState(['Automobiles', 'SUV', 'Test Drive', 'Luxury Cars']);
-  
+
   // Review
   const [launching, setLaunching] = useState(false);
   const [launched, setLaunched] = useState(false);
