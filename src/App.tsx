@@ -1,27 +1,28 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
+import { useState } from 'react';
+import Sidebar from './components/chnc/Sidebar';
+import Header from './components/chnc/Header';
+import CampaignContent from './components/chnc/CampaignContent';
+import Planner from './components/chnc/pages/Planner';
+import Inbox from './components/chnc/pages/Inbox';
 
-const queryClient = new QueryClient();
+export default function App() {
+  const [activePage, setActivePage] = useState('amp-mgmt');
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
-
-export default App;
+  return (
+    <div className="flex min-h-screen bg-white font-sans">
+      <Sidebar activePage={activePage} onNavigate={setActivePage} />
+      <div className="flex-1 ml-64 flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-1 bg-white">
+          {activePage === 'soc-planner' ? (
+            <Planner />
+          ) : activePage === 'soc-inbox' ? (
+            <Inbox />
+          ) : (
+            <CampaignContent />
+          )}
+        </main>
+      </div>
+    </div>
+  );
+}
