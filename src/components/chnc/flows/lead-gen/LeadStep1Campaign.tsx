@@ -1,15 +1,29 @@
 import { useState } from 'react';
-import { Info, CheckCircle2, MessageSquare, Globe, Phone, FileText, Zap, AlertTriangle } from 'lucide-react';
+import { Info, CheckCircle2, MessageSquare, Globe, Phone, FileText, Zap, AlertTriangle, Sparkles } from 'lucide-react';
 import BrandSelect from '../../ui/BrandSelect';
 import Toggle from '../../ui/Toggle';
+
+// Smart defaults based on brand profile
+const BRAND_PROFILE = {
+  name: 'Mahindra',
+  industry: 'Automotive',
+  suggestedBudget: '500',
+};
+
+const generateCampaignName = () => {
+  const now = new Date();
+  const quarter = `Q${Math.ceil((now.getMonth() + 1) / 3)}`;
+  const year = now.getFullYear();
+  return `${BRAND_PROFILE.name} ${quarter} ${year} Lead Gen - ${BRAND_PROFILE.industry}`;
+};
 
 export default function LeadStep1Campaign() {
   const [conversionLocation, setConversionLocation] = useState('instant_forms');
   const [cboEnabled, setCboEnabled] = useState(true);
   const [budgetType, setBudgetType] = useState('daily');
-  const [budgetAmount, setBudgetAmount] = useState('500');
+  const [budgetAmount, setBudgetAmount] = useState(BRAND_PROFILE.suggestedBudget);
   const [bidStrategy, setBidStrategy] = useState('lowest_cost');
-  const [campaignName, setCampaignName] = useState('');
+  const [campaignName, setCampaignName] = useState(generateCampaignName());
   const [selectedPixel, setSelectedPixel] = useState('pixel_mahindra');
   const [conversionEvent, setConversionEvent] = useState('lead');
   const [capiEnabled, setCapiEnabled] = useState(true);
@@ -44,6 +58,7 @@ export default function LeadStep1Campaign() {
           <div className="flex items-center gap-2 mb-6">
             <CheckCircle2 className="w-5 h-5 text-brand" />
             <h3 className="text-base font-semibold uppercase font-saira-condensed">BASIC INFORMATION</h3>
+            <span className="text-[10px] bg-success-muted text-brand px-2 py-0.5 font-bold border border-success-border flex items-center gap-1"><Sparkles className="w-3 h-3" /> Auto-filled</span>
           </div>
           <div className="mb-6">
             <div className="flex items-center gap-2 mb-2">

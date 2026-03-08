@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Sidebar from './components/chnc/Sidebar';
 import Header from './components/chnc/Header';
 import CampaignPipeline, { CampaignItem } from './components/chnc/pages/CampaignPipeline';
+import CampaignTemplates from './components/chnc/pages/CampaignTemplates';
 import QuickLaunch from './components/chnc/flows/QuickLaunch';
 import LeadGenFlow from './components/chnc/flows/LeadGenFlow';
 import CampaignContent from './components/chnc/CampaignContent';
@@ -21,6 +22,15 @@ export default function App() {
     }
   };
 
+  const handleSelectTemplate = (templateId: string) => {
+    // Lead gen template → dedicated flow; others → quick launch
+    if (templateId === 'meta-lead-gen') {
+      setActivePage('amp-setup');
+    } else {
+      setActivePage('amp-quick');
+    }
+  };
+
   const handleNavigate = (pageId: string) => {
     setActivePage(pageId);
     if (pageId !== 'amp-setup') setSelectedCampaign(null);
@@ -34,6 +44,10 @@ export default function App() {
         return <Inbox />;
       case 'amp-setup':
         return <LeadGenFlow />;
+      case 'amp-templates':
+        return <CampaignTemplates onSelectTemplate={handleSelectTemplate} />;
+      case 'amp-quick':
+        return <QuickLaunch campaign={selectedCampaign} />;
       case 'amp-mgmt':
         return <CampaignPipeline onLaunchCampaign={handleLaunchCampaign} />;
       case 'amp-insight':
@@ -44,11 +58,11 @@ export default function App() {
   };
 
   return (
-    <div className="flex min-h-screen bg-white font-sans">
+    <div className="flex min-h-screen bg-background font-sans">
       <Sidebar activePage={activePage} onNavigate={handleNavigate} />
       <div className="flex-1 ml-64 flex flex-col min-h-screen">
         <Header />
-        <main className="flex-1 bg-white">
+        <main className="flex-1 bg-background">
           {renderContent()}
         </main>
       </div>
