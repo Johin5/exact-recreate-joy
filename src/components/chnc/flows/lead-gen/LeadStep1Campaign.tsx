@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Info, CheckCircle2, MessageSquare, Globe, Phone, FileText, Zap, AlertTriangle, Sparkles } from 'lucide-react';
+import { Info, CheckCircle2, MessageSquare, Globe, Phone, FileText, Zap, Sparkles } from 'lucide-react';
 import BrandSelect from '../../ui/BrandSelect';
 import Toggle from '../../ui/Toggle';
 
