@@ -4,6 +4,7 @@ import Header from './components/chnc/Header';
 import CampaignPipeline, { CampaignItem } from './components/chnc/pages/CampaignPipeline';
 import QuickLaunch from './components/chnc/flows/QuickLaunch';
 import LeadGenFlow from './components/chnc/flows/LeadGenFlow';
+import CampaignContent from './components/chnc/CampaignContent';
 import Planner from './components/chnc/pages/Planner';
 import Inbox from './components/chnc/pages/Inbox';
 
@@ -28,7 +29,7 @@ export default function App() {
       case 'soc-inbox':
         return <Inbox />;
       case 'amp-setup':
-        return <LeadGenFlow />;
+        return <CampaignContent />;
       case 'amp-mgmt':
         return <CampaignPipeline onLaunchCampaign={handleLaunchCampaign} />;
       case 'amp-insight':
