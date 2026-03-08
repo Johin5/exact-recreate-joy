@@ -15,9 +15,9 @@ export default function App() {
   const handleLaunchCampaign = (campaign: CampaignItem) => {
     setSelectedCampaign(campaign);
     if (campaign.name.toLowerCase().includes('lead')) {
-      setActivePage('amp-insight');
-    } else {
       setActivePage('amp-setup');
+    } else {
+      setActivePage('amp-insight');
     }
   };
 
