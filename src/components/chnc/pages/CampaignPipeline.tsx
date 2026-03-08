@@ -1,7 +1,7 @@
 import { Search, MoreHorizontal, ChevronUp, ChevronDown, ArrowLeft, ArrowRight, LayoutGrid, List, ChevronsUpDown } from 'lucide-react';
 import { useState } from 'react';
 
-interface CampaignItem {
+export interface CampaignItem {
   id: string;
   name: string;
   approvedDate: string;
@@ -29,7 +29,7 @@ const MetaIcon = () => (
 );
 
 interface CampaignPipelineProps {
-  onLaunchCampaign: (campaignId: string) => void;
+  onLaunchCampaign: (campaign: CampaignItem) => void;
 }
 
 export default function CampaignPipeline({ onLaunchCampaign }: CampaignPipelineProps) {
@@ -144,7 +144,7 @@ export default function CampaignPipeline({ onLaunchCampaign }: CampaignPipelineP
           </thead>
           <tbody>
             {filtered.map((campaign) => (
-              <tr key={campaign.id} className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+              <tr key={campaign.id} onClick={() => onLaunchCampaign(campaign)} className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors cursor-pointer">
                 <td className="px-4 py-4">
                   <input
                     type="checkbox"
