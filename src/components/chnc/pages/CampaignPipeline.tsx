@@ -1,7 +1,7 @@
 import { Search, MoreHorizontal, ChevronUp, ChevronDown, ArrowLeft, ArrowRight, LayoutGrid, List, ChevronsUpDown } from 'lucide-react';
 import { useState } from 'react';
 
-interface CampaignItem {
+export interface CampaignItem {
   id: string;
   name: string;
   approvedDate: string;
