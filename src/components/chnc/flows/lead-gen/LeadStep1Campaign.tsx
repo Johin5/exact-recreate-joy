@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Info, CheckCircle2, MessageSquare, Globe, Phone, FileText, Zap } from 'lucide-react';
+import { Info, CheckCircle2, MessageSquare, Globe, Phone, FileText, Zap, AlertTriangle } from 'lucide-react';
 import BrandSelect from '../../ui/BrandSelect';
 import Toggle from '../../ui/Toggle';
 
@@ -10,6 +10,9 @@ export default function LeadStep1Campaign() {
   const [budgetAmount, setBudgetAmount] = useState('500');
   const [bidStrategy, setBidStrategy] = useState('lowest_cost');
   const [campaignName, setCampaignName] = useState('');
+  const [selectedPixel, setSelectedPixel] = useState('pixel_mahindra');
+  const [conversionEvent, setConversionEvent] = useState('lead');
+  const [capiEnabled, setCapiEnabled] = useState(true);
 
   const conversionLocations = [
     { id: 'instant_forms', label: 'Instant Forms', desc: 'Native forms on Meta — pre-fills user info for quick completion', icon: <FileText className="w-5 h-5" /> },
