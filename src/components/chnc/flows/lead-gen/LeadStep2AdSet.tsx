@@ -173,6 +173,62 @@ export default function LeadStep2AdSet() {
           </div>
         </div>
 
+        {/* Pixel & Conversion Tracking */}
+        <div className="bg-card border border-border p-8 shadow-sm">
+          <div className="flex items-center gap-2 mb-6">
+            <CheckCircle2 className="w-5 h-5 text-brand" />
+            <h3 className="text-base font-semibold uppercase font-saira-condensed">PIXEL & CONVERSION TRACKING</h3>
+          </div>
+
+          <div className="space-y-6">
+            <BrandSelect
+              label="Meta Pixel"
+              options={[
+                { value: 'pixel_mahindra', label: 'Mahindra Auto Pixel (ID: 5849301...)' },
+                { value: 'pixel_secondary', label: 'Mahindra Digital Pixel (ID: 7712948...)' },
+                { value: 'pixel_test', label: 'Test Environment Pixel (ID: 9938471...)' },
+              ]}
+              value={selectedPixel}
+              onChange={setSelectedPixel}
+              className="mb-0"
+              infoTooltip="true"
+            />
+
+            <BrandSelect
+              label="Conversion event"
+              options={[
+                { value: 'lead', label: 'Lead (recommended)' },
+                { value: 'complete_registration', label: 'Complete Registration' },
+                { value: 'submit_application', label: 'Submit Application' },
+                { value: 'contact', label: 'Contact' },
+                { value: 'view_content', label: 'View Content' },
+                { value: 'custom', label: 'Custom Conversion' },
+              ]}
+              value={conversionEvent}
+              onChange={setConversionEvent}
+              className="mb-0"
+              infoTooltip="true"
+            />
+
+            <div className="flex items-center justify-between p-4 bg-muted border border-border">
+              <div>
+                <h4 className="text-sm font-medium text-foreground font-sans">Conversions API (CAPI)</h4>
+                <p className="text-xs text-muted-foreground font-sans">Server-side tracking for improved match rates & iOS 14+ accuracy</p>
+              </div>
+              <Toggle checked={capiEnabled} onChange={setCapiEnabled} />
+            </div>
+
+            {!capiEnabled && (
+              <div className="bg-warning-muted border border-warning-border p-3 flex items-start gap-2">
+                <AlertTriangle className="w-4 h-4 text-warning mt-0.5 flex-shrink-0" />
+                <p className="text-xs text-warning-foreground font-sans leading-relaxed">
+                  Without CAPI, conversion tracking accuracy will be reduced, especially for iOS 14+ users. <strong>Strongly recommended</strong> for lead gen campaigns.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Budget & Schedule */}
         <div className="bg-card border border-border p-8 shadow-sm">
           <div className="flex items-center gap-2 mb-6">
