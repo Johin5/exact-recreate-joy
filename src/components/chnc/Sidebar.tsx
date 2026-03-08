@@ -27,9 +27,9 @@ const menuItems = [
     label: 'AMPLIFYIT',
     id: 'amplifyit',
     submenu: [
-      { label: 'TEMPLATES', id: 'amp-insight' },
-      { label: 'CAMPAIGN SETUP', id: 'amp-setup' },
+      { label: 'QUICK LAUNCH', id: 'amp-setup' },
       { label: 'CAMPAIGN PIPELINE', id: 'amp-mgmt' },
+      { label: 'DETAILED SETUP', id: 'amp-insight' },
     ]
   },
   {
