@@ -33,11 +33,11 @@ export default function App() {
       case 'soc-inbox':
         return <Inbox />;
       case 'amp-setup':
-        return <CampaignContent />;
+        return <LeadGenFlow />;
       case 'amp-mgmt':
         return <CampaignPipeline onLaunchCampaign={handleLaunchCampaign} />;
       case 'amp-insight':
-        return <LeadGenFlow />;
+        return <CampaignContent />;
       default:
         return <CampaignPipeline onLaunchCampaign={handleLaunchCampaign} />;
     }
