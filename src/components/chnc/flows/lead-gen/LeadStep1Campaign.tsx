@@ -58,12 +58,12 @@ export default function LeadStep1Campaign() {
           <div className="flex items-center gap-2 mb-6">
             <CheckCircle2 className="w-5 h-5 text-brand" />
             <h3 className="text-base font-semibold uppercase font-saira-condensed">BASIC INFORMATION</h3>
+            <span className="text-[10px] bg-success-muted text-brand px-2 py-0.5 font-bold border border-success-border flex items-center gap-1"><Sparkles className="w-3 h-3" /> Auto-filled</span>
           </div>
           <div className="mb-6">
             <div className="flex items-center gap-2 mb-2">
               <label className="block text-sm font-medium text-foreground font-sans">Campaign name</label>
               <Info className="w-3.5 h-3.5 text-muted-foreground" />
-            </div>
             <input
               type="text"
               value={campaignName}
