@@ -35,10 +35,10 @@
     --brand-dark-hover: 0 0% 0%;
 
     /* Status / semantic tokens */
-    --info: 211 100% 50%;
+    --info: 220 9% 46%;
     --info-foreground: 0 0% 100%;
-    --info-muted: 211 100% 96%;
-    --info-border: 211 100% 86%;
+    --info-muted: 220 14% 96%;
+    --info-border: 220 13% 91%;
     --warning: 38 92% 50%;
     --warning-muted: 38 92% 96%;
     --warning-border: 38 92% 86%;
@@ -89,10 +89,10 @@
     --brand-dark: 216 60% 5%;
     --brand-dark-hover: 0 0% 0%;
 
-    --info: 211 100% 50%;
+    --info: 220 9% 46%;
     --info-foreground: 0 0% 100%;
-    --info-muted: 211 40% 15%;
-    --info-border: 211 40% 25%;
+    --info-muted: 220 14% 14%;
+    --info-border: 220 13% 22%;
     --warning: 38 92% 50%;
     --warning-muted: 38 40% 15%;
     --warning-border: 38 40% 25%;
