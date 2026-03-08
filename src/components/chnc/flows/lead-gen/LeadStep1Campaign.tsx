@@ -64,6 +64,7 @@ export default function LeadStep1Campaign() {
             <div className="flex items-center gap-2 mb-2">
               <label className="block text-sm font-medium text-foreground font-sans">Campaign name</label>
               <Info className="w-3.5 h-3.5 text-muted-foreground" />
+            </div>
             <input
               type="text"
               value={campaignName}
