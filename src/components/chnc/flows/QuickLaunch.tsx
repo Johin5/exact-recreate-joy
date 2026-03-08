@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { 
+import { useState, useEffect } from 'react';
+import {
   Check, ArrowRight, Rocket, ChevronDown, ArrowLeft, 
   Target, Users, ShoppingBag, Smartphone, Megaphone, MousePointer,
   MapPin, X, Plus, Info, CheckCircle2, AlertTriangle, Eye,
