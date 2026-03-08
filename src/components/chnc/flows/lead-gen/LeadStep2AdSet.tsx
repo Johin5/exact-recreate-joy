@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Info, CheckCircle2, Plus, X, MapPin, Users, Target } from 'lucide-react';
+import { Info, CheckCircle2, Target, Users } from 'lucide-react';
 import BrandSelect from '../../ui/BrandSelect';
-import Toggle from '../../ui/Toggle';
+import LocationTargeting, { LocationData } from '../../ui/LocationTargeting';
+import InterestTargeting, { InterestSuggestion } from '../../ui/InterestTargeting';
 
 export default function LeadStep2AdSet() {
   const [adSetName, setAdSetName] = useState('');
@@ -16,13 +17,20 @@ export default function LeadStep2AdSet() {
   const [ageMin, setAgeMin] = useState('25');
   const [ageMax, setAgeMax] = useState('55');
   const [gender, setGender] = useState('all');
-  const [locations, setLocations] = useState(['Mumbai', 'Delhi', 'Bangalore']);
-  const [interests, setInterests] = useState(['Automobiles', 'SUV', 'Test Drive']);
   const [audienceType, setAudienceType] = useState('broad');
 
-  const removeTag = (list: string[], setList: (v: string[]) => void, item: string) => {
-    setList(list.filter((i) => i !== item));
-  };
+  // Interactive location & interest data
+  const [locations, setLocations] = useState<LocationData[]>([
+    { id: '1', name: 'Mumbai', lat: 19.076, lon: 72.8777, country: 'India' },
+    { id: '2', name: 'Delhi', lat: 28.6139, lon: 77.209, country: 'India' },
+    { id: '3', name: 'Bangalore', lat: 12.9716, lon: 77.5946, country: 'India' },
+  ]);
+
+  const [interests, setInterests] = useState<InterestSuggestion[]>([
+    { name: 'Automobiles', size: '235M - 277M', rawSize: 256000000, type: 'Interests', path: 'Interests › Hobbies and activities › Vehicles' },
+    { name: 'SUV', size: '145M - 171M', rawSize: 158000000, type: 'Interests', path: 'Interests › Hobbies and activities › Vehicles' },
+    { name: 'Test drive', size: '12M - 14M', rawSize: 13000000, type: 'Behaviors', path: 'Behaviors › Purchase behavior' },
+  ]);
 
   return (
     <>
@@ -87,43 +95,22 @@ export default function LeadStep2AdSet() {
             <BrandSelect label="Gender" options={[{ value: 'all', label: 'All genders' }, { value: 'male', label: 'Male' }, { value: 'female', label: 'Female' }]} value={gender} onChange={setGender} className="mb-0" />
           </div>
 
-          {/* Locations */}
+          {/* Location Targeting with Map */}
           <div className="mb-6">
-            <div className="flex items-center gap-2 mb-2">
-              <MapPin className="w-4 h-4 text-gray-400" />
-              <label className="block text-sm font-medium text-gray-900 font-sans">Locations</label>
-            </div>
-            <div className="flex items-center gap-2 flex-wrap mb-2">
-              {locations.map((loc) => (
-                <span key={loc} className="inline-flex items-center gap-1 bg-gray-100 text-gray-700 text-xs font-medium px-3 py-1.5">
-                  {loc}
-                  <button onClick={() => removeTag(locations, setLocations, loc)}><X className="w-3 h-3 text-gray-400 hover:text-gray-600" /></button>
-                </span>
-              ))}
-              <button className="flex items-center gap-1 text-xs font-bold uppercase text-gray-500 hover:text-gray-700 font-saira-condensed">
-                <Plus className="w-3 h-3" /> ADD
-              </button>
-            </div>
-          </div>
-
-          {/* Interests */}
-          <div className="mb-6">
-            <div className="flex items-center gap-2 mb-2">
-              <label className="block text-sm font-medium text-gray-900 font-sans">Detailed targeting (Interests & Behaviors)</label>
+            <div className="flex items-center gap-2 mb-3">
+              <label className="block text-sm font-medium text-gray-900 font-sans">Location Targeting</label>
               <Info className="w-3.5 h-3.5 text-gray-400" />
             </div>
-            <div className="flex items-center gap-2 flex-wrap mb-2">
-              {interests.map((item) => (
-                <span key={item} className="inline-flex items-center gap-1 bg-blue-50 text-blue-700 text-xs font-medium px-3 py-1.5 border border-blue-200">
-                  {item}
-                  <button onClick={() => removeTag(interests, setInterests, item)}><X className="w-3 h-3 text-blue-400 hover:text-blue-600" /></button>
-                </span>
-              ))}
-              <button className="flex items-center gap-1 text-xs font-bold uppercase text-gray-500 hover:text-gray-700 font-saira-condensed">
-                <Plus className="w-3 h-3" /> ADD INTEREST
-              </button>
+            <LocationTargeting locations={locations} onChange={setLocations} />
+          </div>
+
+          {/* Interest Targeting */}
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <label className="block text-sm font-medium text-gray-900 font-sans">Detailed Targeting (Interests & Behaviors)</label>
+              <Info className="w-3.5 h-3.5 text-gray-400" />
             </div>
-            <p className="text-xs text-gray-400 font-sans">Add interests, behaviors, or demographics to narrow your audience.</p>
+            <InterestTargeting selected={interests} onChange={setInterests} />
           </div>
         </div>
 
