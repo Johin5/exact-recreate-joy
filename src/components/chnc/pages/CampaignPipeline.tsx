@@ -29,7 +29,7 @@ const MetaIcon = () => (
 );
 
 interface CampaignPipelineProps {
-  onLaunchCampaign: (campaignId: string) => void;
+  onLaunchCampaign: (campaign: CampaignItem) => void;
 }
 
 export default function CampaignPipeline({ onLaunchCampaign }: CampaignPipelineProps) {
