@@ -40,146 +40,69 @@ export default function CampaignPipeline({ onLaunchCampaign }: CampaignPipelineP
   const totalCampaigns = 60;
   const totalPages = 3;
 
-  const toggleSelect = (id: string) => {
-    setSelectedIds((prev) => prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]);
-  };
-
-  const toggleAll = () => {
-    setSelectedIds(selectedIds.length === campaigns.length ? [] : campaigns.map((c) => c.id));
-  };
-
-  const filtered = campaigns.filter((c) =>
-    c.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const toggleSelect = (id: string) => { setSelectedIds((prev) => prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]); };
+  const toggleAll = () => { setSelectedIds(selectedIds.length === campaigns.length ? [] : campaigns.map((c) => c.id)); };
+  const filtered = campaigns.filter((c) => c.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <div className="p-8 max-w-[1600px] mx-auto flex flex-col min-h-[calc(100vh-64px)]">
       {/* Tab */}
-      <div className="mb-8 border-b-2 border-gray-200">
-        <div className="inline-flex items-center gap-2 pb-3 border-b-2 border-[#050B14] -mb-[2px]">
-          <span className="text-sm font-bold uppercase tracking-wide font-saira-condensed text-gray-900">APPROVED CAMPAIGNS</span>
-          <span className="bg-[#050B14] text-white text-[10px] font-bold px-2 py-0.5 min-w-[24px] text-center">12</span>
+      <div className="mb-8 border-b-2 border-border">
+        <div className="inline-flex items-center gap-2 pb-3 border-b-2 border-brand-dark -mb-[2px]">
+          <span className="text-sm font-bold uppercase tracking-wide font-saira-condensed text-foreground">APPROVED CAMPAIGNS</span>
+          <span className="bg-brand-dark text-brand-foreground text-[10px] font-bold px-2 py-0.5 min-w-[24px] text-center">12</span>
         </div>
       </div>
 
       {/* Header row */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-bold text-gray-900 uppercase tracking-tight font-saira-condensed mb-1">APPROVED CAMPAIGNS (12)</h1>
-          <p className="text-sm text-gray-400 font-sans">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+          <h1 className="text-xl font-bold text-foreground uppercase tracking-tight font-saira-condensed mb-1">APPROVED CAMPAIGNS (12)</h1>
+          <p className="text-sm text-muted-foreground font-sans">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
         </div>
         <div className="flex items-center gap-3">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 pr-4 py-2.5 bg-white border border-gray-200 text-sm focus:outline-none focus:ring-1 focus:ring-gray-300 w-64 font-sans"
-            />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <input type="text" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} className="pl-10 pr-4 py-2.5 bg-background border border-border text-sm focus:outline-none focus:ring-1 focus:ring-muted-foreground/30 w-64 font-sans" />
           </div>
-          <div className="flex border border-gray-200">
-            <button
-              onClick={() => setView('grid')}
-              className={`p-2.5 ${view === 'grid' ? 'bg-gray-100 text-gray-900' : 'text-gray-400 hover:bg-gray-50'}`}
-            >
-              <LayoutGrid className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => setView('list')}
-              className={`p-2.5 ${view === 'list' ? 'bg-gray-100 text-gray-900' : 'text-gray-400 hover:bg-gray-50'}`}
-            >
-              <List className="w-4 h-4" />
-            </button>
+          <div className="flex border border-border">
+            <button onClick={() => setView('grid')} className={`p-2.5 ${view === 'grid' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted'}`}><LayoutGrid className="w-4 h-4" /></button>
+            <button onClick={() => setView('list')} className={`p-2.5 ${view === 'list' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted'}`}><List className="w-4 h-4" /></button>
           </div>
-          <button className="flex items-center gap-2 px-4 py-2.5 border border-gray-200 text-sm font-bold uppercase tracking-wide hover:bg-gray-50 font-saira-condensed">
-            <ChevronsUpDown className="w-4 h-4" /> SORT BY
-          </button>
+          <button className="flex items-center gap-2 px-4 py-2.5 border border-border text-sm font-bold uppercase tracking-wide hover:bg-muted font-saira-condensed"><ChevronsUpDown className="w-4 h-4" /> SORT BY</button>
         </div>
       </div>
 
       {/* Table */}
-      <div className="flex-1 bg-white border border-gray-200 overflow-hidden">
+      <div className="flex-1 bg-card border border-border overflow-hidden">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-gray-200 bg-[#F9FAFB]">
-              <th className="w-12 px-4 py-3">
-                <input
-                  type="checkbox"
-                  checked={selectedIds.length === campaigns.length}
-                  onChange={toggleAll}
-                  className="w-4 h-4 border-gray-300 accent-[#050B14]"
-                />
-              </th>
-              <th className="text-left px-4 py-3">
-                <button className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-gray-500 font-saira-condensed">
-                  CAMPAIGN NAME <ChevronsUpDown className="w-3 h-3" />
-                </button>
-              </th>
-              <th className="text-left px-4 py-3">
-                <button className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-gray-500 font-saira-condensed">
-                  TYPE <ChevronsUpDown className="w-3 h-3" />
-                </button>
-              </th>
-              <th className="text-left px-4 py-3">
-                <button className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-gray-500 font-saira-condensed">
-                  PLATFORM <ChevronsUpDown className="w-3 h-3" />
-                </button>
-              </th>
-              <th className="text-left px-4 py-3">
-                <button className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-gray-500 font-saira-condensed">
-                  SCHEDULED ON <ChevronsUpDown className="w-3 h-3" />
-                </button>
-              </th>
-              <th className="text-left px-4 py-3">
-                <button className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-gray-500 font-saira-condensed">
-                  STATUS <ChevronsUpDown className="w-3 h-3" />
-                </button>
-              </th>
-              <th className="text-left px-4 py-3">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-gray-500 font-saira-condensed">ACTIONS</span>
-              </th>
+            <tr className="border-b border-border bg-surface">
+              <th className="w-12 px-4 py-3"><input type="checkbox" checked={selectedIds.length === campaigns.length} onChange={toggleAll} className="w-4 h-4 border-border accent-brand-dark" /></th>
+              {['CAMPAIGN NAME', 'TYPE', 'PLATFORM', 'SCHEDULED ON', 'STATUS'].map((h) => (
+                <th key={h} className="text-left px-4 py-3"><button className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground font-saira-condensed">{h} <ChevronsUpDown className="w-3 h-3" /></button></th>
+              ))}
+              <th className="text-left px-4 py-3"><span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground font-saira-condensed">ACTIONS</span></th>
             </tr>
           </thead>
           <tbody>
             {filtered.map((campaign) => (
-              <tr key={campaign.id} onClick={() => onLaunchCampaign(campaign)} className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors cursor-pointer">
-                <td className="px-4 py-4">
-                  <input
-                    type="checkbox"
-                    checked={selectedIds.includes(campaign.id)}
-                    onChange={() => toggleSelect(campaign.id)}
-                    className="w-4 h-4 border-gray-300 accent-[#050B14]"
-                  />
-                </td>
+              <tr key={campaign.id} onClick={() => onLaunchCampaign(campaign)} className="border-b border-border/50 hover:bg-muted/50 transition-colors cursor-pointer">
+                <td className="px-4 py-4"><input type="checkbox" checked={selectedIds.includes(campaign.id)} onChange={() => toggleSelect(campaign.id)} className="w-4 h-4 border-border accent-brand-dark" /></td>
                 <td className="px-4 py-4">
                   <div className="flex items-center gap-3">
-                    <img
-                      src={campaign.thumbnail}
-                      alt={campaign.name}
-                      className="w-12 h-12 object-cover border border-gray-200 flex-shrink-0"
-                      referrerPolicy="no-referrer"
-                    />
+                    <img src={campaign.thumbnail} alt={campaign.name} className="w-12 h-12 object-cover border border-border flex-shrink-0" referrerPolicy="no-referrer" />
                     <div>
-                      <div className="text-sm font-semibold text-gray-900 font-sans">{campaign.name}</div>
-                      <div className="text-xs text-gray-400 font-sans">Approved on {campaign.approvedDate}</div>
+                      <div className="text-sm font-semibold text-foreground font-sans">{campaign.name}</div>
+                      <div className="text-xs text-muted-foreground font-sans">Approved on {campaign.approvedDate}</div>
                     </div>
                   </div>
                 </td>
-                <td className="px-4 py-4 text-sm text-gray-600 font-sans">{campaign.type}</td>
-                <td className="px-4 py-4">
-                  <MetaIcon />
-                </td>
-                <td className="px-4 py-4 text-sm text-gray-600 font-sans">{campaign.scheduledOn}</td>
-                <td className="px-4 py-4">
-                  <span className="text-sm font-medium text-[#34CC32] font-sans">{campaign.status}</span>
-                </td>
-                <td className="px-4 py-4">
-                  <button className="p-1 hover:bg-gray-100 transition-colors">
-                    <MoreHorizontal className="w-5 h-5 text-gray-400" />
-                  </button>
-                </td>
+                <td className="px-4 py-4 text-sm text-muted-foreground font-sans">{campaign.type}</td>
+                <td className="px-4 py-4"><MetaIcon /></td>
+                <td className="px-4 py-4 text-sm text-muted-foreground font-sans">{campaign.scheduledOn}</td>
+                <td className="px-4 py-4"><span className="text-sm font-medium text-brand font-sans">{campaign.status}</span></td>
+                <td className="px-4 py-4"><button className="p-1 hover:bg-muted transition-colors"><MoreHorizontal className="w-5 h-5 text-muted-foreground" /></button></td>
               </tr>
             ))}
           </tbody>
@@ -188,35 +111,13 @@ export default function CampaignPipeline({ onLaunchCampaign }: CampaignPipelineP
 
       {/* Pagination */}
       <div className="flex items-center justify-between pt-6 pb-4">
-        <span className="text-sm text-gray-400 font-sans">Showing 1 - 10 of {totalCampaigns}</span>
+        <span className="text-sm text-muted-foreground font-sans">Showing 1 - 10 of {totalCampaigns}</span>
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-            disabled={currentPage === 1}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 disabled:opacity-40 disabled:cursor-not-allowed font-sans"
-          >
-            <ArrowLeft className="w-4 h-4" /> PREVIOUS
-          </button>
+          <button onClick={() => setCurrentPage(Math.max(1, currentPage - 1))} disabled={currentPage === 1} className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground disabled:opacity-40 disabled:cursor-not-allowed font-sans"><ArrowLeft className="w-4 h-4" /> PREVIOUS</button>
           {[1, 2, 3].map((page) => (
-            <button
-              key={page}
-              onClick={() => setCurrentPage(page)}
-              className={`w-9 h-9 text-sm font-medium flex items-center justify-center transition-colors ${
-                currentPage === page
-                  ? 'border border-gray-900 text-gray-900 font-bold'
-                  : 'text-gray-500 hover:bg-gray-100'
-              }`}
-            >
-              {page}
-            </button>
+            <button key={page} onClick={() => setCurrentPage(page)} className={`w-9 h-9 text-sm font-medium flex items-center justify-center transition-colors ${currentPage === page ? 'border border-foreground text-foreground font-bold' : 'text-muted-foreground hover:bg-muted'}`}>{page}</button>
           ))}
-          <button
-            onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-            disabled={currentPage === totalPages}
-            className="flex items-center gap-2 px-5 py-2.5 bg-[#050B14] text-white text-sm font-bold uppercase tracking-wide disabled:opacity-40 disabled:cursor-not-allowed font-saira-condensed"
-          >
-            NEXT <ArrowRight className="w-4 h-4" />
-          </button>
+          <button onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))} disabled={currentPage === totalPages} className="flex items-center gap-2 px-5 py-2.5 bg-brand-dark text-brand-foreground text-sm font-bold uppercase tracking-wide disabled:opacity-40 disabled:cursor-not-allowed font-saira-condensed">NEXT <ArrowRight className="w-4 h-4" /></button>
         </div>
       </div>
     </div>

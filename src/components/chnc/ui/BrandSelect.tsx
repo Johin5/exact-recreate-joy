@@ -44,30 +44,30 @@ export default function BrandSelect({
     <div className={`mb-6 ${className}`} ref={containerRef}>
       {label && (
         <div className="flex items-center gap-2 mb-2">
-          <label className="block text-xs font-bold text-gray-900 font-saira-condensed uppercase tracking-wide">
+          <label className="block text-xs font-bold text-foreground font-saira-condensed uppercase tracking-wide">
             {label}
           </label>
-          {infoTooltip && <Info className="w-3.5 h-3.5 text-gray-400" />}
+          {infoTooltip && <Info className="w-3.5 h-3.5 text-muted-foreground" />}
         </div>
       )}
 
       <div className="relative">
         <div
           onClick={() => setIsOpen(!isOpen)}
-          className={`w-full bg-white border text-gray-900 text-sm block p-3 pr-10 font-normal font-sans cursor-pointer transition-colors
-            ${isOpen ? 'border-[#34CC32] ring-1 ring-[#34CC32]' : 'border-gray-200 hover:border-gray-300'}
+          className={`w-full bg-background border text-foreground text-sm block p-3 pr-10 font-normal font-sans cursor-pointer transition-colors
+            ${isOpen ? 'border-brand ring-1 ring-brand' : 'border-border hover:border-muted-foreground/40'}
           `}
         >
-          <span className={selectedOption ? 'text-gray-900' : 'text-gray-400'}>
+          <span className={selectedOption ? 'text-foreground' : 'text-muted-foreground'}>
             {selectedOption ? selectedOption.label : placeholder}
           </span>
           <ChevronDown
-            className={`absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+            className={`absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
           />
         </div>
 
         {isOpen && (
-          <div className="absolute z-20 w-full bg-white border border-gray-200 shadow-lg mt-1 max-h-60 overflow-y-auto">
+          <div className="absolute z-20 w-full bg-card border border-border shadow-lg mt-1 max-h-60 overflow-y-auto">
             {options.map((option) => (
               <div
                 key={option.value}
@@ -76,7 +76,7 @@ export default function BrandSelect({
                   setIsOpen(false);
                 }}
                 className={`px-4 py-3 cursor-pointer text-sm font-sans transition-colors
-                  ${option.value === value ? 'bg-gray-50 text-[#34CC32] font-medium' : 'text-gray-900 hover:bg-gray-50 hover:text-[#34CC32]'}
+                  ${option.value === value ? 'bg-muted text-brand font-medium' : 'text-foreground hover:bg-muted hover:text-brand'}
                 `}
               >
                 {option.label}
