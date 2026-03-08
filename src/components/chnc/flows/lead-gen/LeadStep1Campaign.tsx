@@ -24,9 +24,6 @@ export default function LeadStep1Campaign() {
   const [budgetAmount, setBudgetAmount] = useState(BRAND_PROFILE.suggestedBudget);
   const [bidStrategy, setBidStrategy] = useState('lowest_cost');
   const [campaignName, setCampaignName] = useState(generateCampaignName());
-  const [selectedPixel, setSelectedPixel] = useState('pixel_mahindra');
-  const [conversionEvent, setConversionEvent] = useState('lead');
-  const [capiEnabled, setCapiEnabled] = useState(true);
 
   const conversionLocations = [
     { id: 'instant_forms', label: 'Instant Forms', desc: 'Native forms on Meta — pre-fills user info for quick completion', icon: <FileText className="w-5 h-5" /> },
