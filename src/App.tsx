@@ -4,21 +4,20 @@ import Header from './components/chnc/Header';
 import CampaignContent from './components/chnc/CampaignContent';
 import CampaignTemplates from './components/chnc/pages/CampaignTemplates';
 import CampaignPipeline from './components/chnc/pages/CampaignPipeline';
+import LeadGenFlow from './components/chnc/flows/LeadGenFlow';
 import Planner from './components/chnc/pages/Planner';
 import Inbox from './components/chnc/pages/Inbox';
 
 export default function App() {
   const [activePage, setActivePage] = useState('amp-mgmt');
-  const [launchingTemplate, setLaunchingTemplate] = useState<string | null>(null);
 
   const handleSelectTemplate = (templateId: string) => {
-    setLaunchingTemplate(templateId);
-    setActivePage('amp-setup');
+    // For now, all templates route to Lead Gen flow; future: route by template type
+    setActivePage('lead-gen-flow');
   };
 
   const handleLaunchCampaign = (campaignId: string) => {
-    // Navigate to campaign setup with pre-filled data
-    setActivePage('amp-setup');
+    setActivePage('lead-gen-flow');
   };
 
   const renderContent = () => {
@@ -33,6 +32,8 @@ export default function App() {
         return <CampaignPipeline onLaunchCampaign={handleLaunchCampaign} />;
       case 'amp-insight':
         return <CampaignTemplates onSelectTemplate={handleSelectTemplate} />;
+      case 'lead-gen-flow':
+        return <LeadGenFlow />;
       default:
         return <CampaignPipeline onLaunchCampaign={handleLaunchCampaign} />;
     }
