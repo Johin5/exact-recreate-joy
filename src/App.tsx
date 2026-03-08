@@ -29,7 +29,7 @@ export default function App() {
       case 'soc-inbox':
         return <Inbox />;
       case 'amp-setup':
-        return <LeadGenFlow />;
+        return <CampaignContent />;
       case 'amp-mgmt':
         return <CampaignPipeline onLaunchCampaign={handleLaunchCampaign} />;
       case 'amp-insight':
