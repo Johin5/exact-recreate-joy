@@ -7,11 +7,11 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 220 14% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 14% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 14% 10%;
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
@@ -26,13 +26,39 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
+
+    /* Brand tokens */
+    --brand: 119 63% 50%;
+    --brand-foreground: 0 0% 100%;
+    --brand-hover: 119 61% 44%;
+    --brand-dark: 216 60% 5%;
+    --brand-dark-hover: 0 0% 0%;
+
+    /* Status / semantic tokens */
+    --info: 211 100% 50%;
+    --info-foreground: 0 0% 100%;
+    --info-muted: 211 100% 96%;
+    --info-border: 211 100% 86%;
+    --warning: 38 92% 50%;
+    --warning-muted: 38 92% 96%;
+    --warning-border: 38 92% 86%;
+    --warning-foreground: 28 80% 30%;
+    --success-muted: 119 63% 96%;
+    --success-border: 119 63% 86%;
+
+    /* Neutral surface tokens */
+    --surface: 210 20% 98%;
+    --surface-hover: 210 20% 96%;
+    --surface-active: 210 20% 94%;
+
+    /* Sidebar */
+    --sidebar-background: 216 60% 5%;
+    --sidebar-foreground: 215 16% 60%;
+    --sidebar-primary: 119 63% 50%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 220 20% 10%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 220 20% 18%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -56,6 +82,28 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+
+    --brand: 119 63% 50%;
+    --brand-foreground: 0 0% 100%;
+    --brand-hover: 119 61% 44%;
+    --brand-dark: 216 60% 5%;
+    --brand-dark-hover: 0 0% 0%;
+
+    --info: 211 100% 50%;
+    --info-foreground: 0 0% 100%;
+    --info-muted: 211 40% 15%;
+    --info-border: 211 40% 25%;
+    --warning: 38 92% 50%;
+    --warning-muted: 38 40% 15%;
+    --warning-border: 38 40% 25%;
+    --warning-foreground: 38 92% 80%;
+    --success-muted: 119 40% 15%;
+    --success-border: 119 40% 25%;
+
+    --surface: 220 20% 10%;
+    --surface-hover: 220 20% 14%;
+    --surface-active: 220 20% 18%;
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

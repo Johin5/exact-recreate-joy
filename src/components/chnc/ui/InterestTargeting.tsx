@@ -26,30 +26,21 @@ const MOCK_INTERESTS: InterestSuggestion[] = [
 ];
 
 const BROWSE_CATEGORIES = [
-  {
-    name: 'Demographics',
-    subcategories: [
-      { name: 'Financial', items: MOCK_INTERESTS.filter(i => i.type === 'Demographics' && i.path.includes('Financial')) },
-      { name: 'Work', items: MOCK_INTERESTS.filter(i => i.type === 'Demographics' && i.path.includes('Work')) },
-    ],
-  },
-  {
-    name: 'Interests',
-    subcategories: [
-      { name: 'Vehicles', items: MOCK_INTERESTS.filter(i => i.type === 'Interests' && i.path.includes('Vehicles')) },
-      { name: 'Technology', items: MOCK_INTERESTS.filter(i => i.type === 'Interests' && i.path.includes('Technology')) },
-      { name: 'Travel', items: MOCK_INTERESTS.filter(i => i.type === 'Interests' && i.path.includes('Travel')) },
-      { name: 'Health', items: MOCK_INTERESTS.filter(i => i.type === 'Interests' && i.path.includes('Health')) },
-      { name: 'Business', items: MOCK_INTERESTS.filter(i => i.type === 'Interests' && i.path.includes('Business')) },
-    ],
-  },
-  {
-    name: 'Behaviors',
-    subcategories: [
-      { name: 'Purchase behavior', items: MOCK_INTERESTS.filter(i => i.type === 'Behaviors' && i.path.includes('Purchase')) },
-      { name: 'Digital activities', items: MOCK_INTERESTS.filter(i => i.type === 'Behaviors' && i.path.includes('Digital')) },
-    ],
-  },
+  { name: 'Demographics', subcategories: [
+    { name: 'Financial', items: MOCK_INTERESTS.filter(i => i.type === 'Demographics' && i.path.includes('Financial')) },
+    { name: 'Work', items: MOCK_INTERESTS.filter(i => i.type === 'Demographics' && i.path.includes('Work')) },
+  ]},
+  { name: 'Interests', subcategories: [
+    { name: 'Vehicles', items: MOCK_INTERESTS.filter(i => i.type === 'Interests' && i.path.includes('Vehicles')) },
+    { name: 'Technology', items: MOCK_INTERESTS.filter(i => i.type === 'Interests' && i.path.includes('Technology')) },
+    { name: 'Travel', items: MOCK_INTERESTS.filter(i => i.type === 'Interests' && i.path.includes('Travel')) },
+    { name: 'Health', items: MOCK_INTERESTS.filter(i => i.type === 'Interests' && i.path.includes('Health')) },
+    { name: 'Business', items: MOCK_INTERESTS.filter(i => i.type === 'Interests' && i.path.includes('Business')) },
+  ]},
+  { name: 'Behaviors', subcategories: [
+    { name: 'Purchase behavior', items: MOCK_INTERESTS.filter(i => i.type === 'Behaviors' && i.path.includes('Purchase')) },
+    { name: 'Digital activities', items: MOCK_INTERESTS.filter(i => i.type === 'Behaviors' && i.path.includes('Digital')) },
+  ]},
 ];
 
 interface InterestTargetingProps {
@@ -70,8 +61,7 @@ export default function InterestTargeting({ selected, onChange }: InterestTarget
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setShowDropdown(false);
-        setHoveredInterest(null);
+        setShowDropdown(false); setHoveredInterest(null);
       }
     };
     document.addEventListener('mousedown', handler);
@@ -87,32 +77,17 @@ export default function InterestTargeting({ selected, onChange }: InterestTarget
   }, [query, selected, sortBy]);
 
   const addInterest = (interest: InterestSuggestion) => {
-    if (!selected.find((s) => s.name === interest.name)) {
-      onChange([...selected, interest]);
-    }
+    if (!selected.find((s) => s.name === interest.name)) onChange([...selected, interest]);
   };
 
-  const removeInterest = (name: string) => {
-    onChange(selected.filter((s) => s.name !== name));
-  };
-
-  const toggleCat = (name: string) => {
-    const next = new Set(expandedCats);
-    next.has(name) ? next.delete(name) : next.add(name);
-    setExpandedCats(next);
-  };
-
-  const toggleSub = (name: string) => {
-    const next = new Set(expandedSubs);
-    next.has(name) ? next.delete(name) : next.add(name);
-    setExpandedSubs(next);
-  };
+  const removeInterest = (name: string) => { onChange(selected.filter((s) => s.name !== name)); };
+  const toggleCat = (name: string) => { const next = new Set(expandedCats); next.has(name) ? next.delete(name) : next.add(name); setExpandedCats(next); };
+  const toggleSub = (name: string) => { const next = new Set(expandedSubs); next.has(name) ? next.delete(name) : next.add(name); setExpandedSubs(next); };
 
   const estimatedSize = useMemo(() => {
     if (selected.length === 0) return null;
     const totalRaw = selected.reduce((sum, s) => sum + s.rawSize, 0);
-    const overlap = 0.6;
-    const est = totalRaw * overlap;
+    const est = totalRaw * 0.6;
     if (est >= 1_000_000_000) return `${(est / 1_000_000_000).toFixed(1)}B`;
     if (est >= 1_000_000) return `${(est / 1_000_000).toFixed(1)}M`;
     return `${(est / 1_000).toFixed(0)}K`;
@@ -120,24 +95,21 @@ export default function InterestTargeting({ selected, onChange }: InterestTarget
 
   const typeColor = (type: string) => {
     switch (type) {
-      case 'Interests': return 'bg-blue-50 text-blue-700 border-blue-200';
-      case 'Demographics': return 'bg-purple-50 text-purple-700 border-purple-200';
-      case 'Behaviors': return 'bg-amber-50 text-amber-700 border-amber-200';
-      default: return 'bg-gray-50 text-gray-700 border-gray-200';
+      case 'Interests': return 'bg-info-muted text-info border-info-border';
+      case 'Demographics': return 'bg-accent text-accent-foreground border-border';
+      case 'Behaviors': return 'bg-warning-muted text-warning-foreground border-warning-border';
+      default: return 'bg-muted text-muted-foreground border-border';
     }
   };
 
   return (
     <div className="space-y-4">
-      {/* Search input with selected tags */}
       <div ref={containerRef} className="relative">
-        <div className="border border-gray-200 bg-white p-2 flex flex-wrap gap-2 items-center min-h-[48px]">
+        <div className="border border-border bg-background p-2 flex flex-wrap gap-2 items-center min-h-[48px]">
           {selected.map((s) => (
             <span key={s.name} className={`inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1 border ${typeColor(s.type)}`}>
               {s.name}
-              <button onClick={() => removeInterest(s.name)}>
-                <X className="w-3 h-3 opacity-60 hover:opacity-100" />
-              </button>
+              <button onClick={() => removeInterest(s.name)}><X className="w-3 h-3 opacity-60 hover:opacity-100" /></button>
             </span>
           ))}
           <div className="flex-1 min-w-[200px] relative">
@@ -147,38 +119,19 @@ export default function InterestTargeting({ selected, onChange }: InterestTarget
               onChange={(e) => { setQuery(e.target.value); setMode('search'); setShowDropdown(true); }}
               onFocus={() => setShowDropdown(true)}
               placeholder={selected.length > 0 ? 'Add more…' : 'Search interests, behaviors, demographics…'}
-              className="w-full text-sm text-gray-900 font-sans placeholder-gray-400 outline-none bg-transparent py-1 px-1"
+              className="w-full text-sm text-foreground font-sans placeholder:text-muted-foreground outline-none bg-transparent py-1 px-1"
             />
           </div>
         </div>
 
         {showDropdown && (
-          <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 shadow-lg max-h-80 overflow-hidden flex flex-col">
-            {/* Tabs */}
-            <div className="flex border-b border-gray-200">
-              <button
-                onClick={() => setMode('search')}
-                className={`flex-1 py-2.5 text-xs font-semibold uppercase tracking-wide font-saira-condensed transition-colors ${
-                  mode === 'search' ? 'text-gray-900 border-b-2 border-black' : 'text-gray-400 hover:text-gray-600'
-                }`}
-              >
-                Search
-              </button>
-              <button
-                onClick={() => setMode('browse')}
-                className={`flex-1 py-2.5 text-xs font-semibold uppercase tracking-wide font-saira-condensed transition-colors ${
-                  mode === 'browse' ? 'text-gray-900 border-b-2 border-black' : 'text-gray-400 hover:text-gray-600'
-                }`}
-              >
-                Browse
-              </button>
+          <div className="absolute z-50 w-full mt-1 bg-card border border-border shadow-lg max-h-80 overflow-hidden flex flex-col">
+            <div className="flex border-b border-border">
+              <button onClick={() => setMode('search')} className={`flex-1 py-2.5 text-xs font-semibold uppercase tracking-wide font-saira-condensed transition-colors ${mode === 'search' ? 'text-foreground border-b-2 border-foreground' : 'text-muted-foreground hover:text-foreground/70'}`}>Search</button>
+              <button onClick={() => setMode('browse')} className={`flex-1 py-2.5 text-xs font-semibold uppercase tracking-wide font-saira-condensed transition-colors ${mode === 'browse' ? 'text-foreground border-b-2 border-foreground' : 'text-muted-foreground hover:text-foreground/70'}`}>Browse</button>
               {mode === 'search' && (
-                <button
-                  onClick={() => setSortBy(sortBy === 'relevance' ? 'size' : 'relevance')}
-                  className="px-3 flex items-center gap-1 text-xs text-gray-400 hover:text-gray-600 border-l border-gray-200"
-                >
-                  <ArrowUpDown className="w-3 h-3" />
-                  {sortBy === 'relevance' ? 'Relevance' : 'Size'}
+                <button onClick={() => setSortBy(sortBy === 'relevance' ? 'size' : 'relevance')} className="px-3 flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground/70 border-l border-border">
+                  <ArrowUpDown className="w-3 h-3" />{sortBy === 'relevance' ? 'Relevance' : 'Size'}
                 </button>
               )}
             </div>
@@ -187,82 +140,57 @@ export default function InterestTargeting({ selected, onChange }: InterestTarget
               {mode === 'search' ? (
                 filtered.length > 0 ? (
                   filtered.map((item) => (
-                    <div
-                      key={item.name}
-                      className="relative"
-                      onMouseEnter={() => setHoveredInterest(item)}
-                      onMouseLeave={() => setHoveredInterest(null)}
-                    >
-                      <button
-                        onClick={() => addInterest(item)}
-                        className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center gap-3 border-b border-gray-100 last:border-0 transition-colors"
-                      >
+                    <div key={item.name} className="relative" onMouseEnter={() => setHoveredInterest(item)} onMouseLeave={() => setHoveredInterest(null)}>
+                      <button onClick={() => addInterest(item)} className="w-full text-left px-4 py-3 hover:bg-muted flex items-center gap-3 border-b border-border/50 last:border-0 transition-colors">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
-                            <span className="text-sm text-gray-900 font-sans font-medium">{item.name}</span>
-                            <span className={`text-[10px] font-medium px-1.5 py-0.5 border ${typeColor(item.type)}`}>
-                              {item.type}
-                            </span>
+                            <span className="text-sm text-foreground font-sans font-medium">{item.name}</span>
+                            <span className={`text-[10px] font-medium px-1.5 py-0.5 border ${typeColor(item.type)}`}>{item.type}</span>
                           </div>
-                          <p className="text-xs text-gray-400 font-sans mt-0.5">{item.path}</p>
+                          <p className="text-xs text-muted-foreground font-sans mt-0.5">{item.path}</p>
                         </div>
                         <div className="text-right flex-shrink-0">
-                          <div className="flex items-center gap-1 text-xs text-gray-500">
-                            <Users className="w-3 h-3" />
-                            {item.size}
-                          </div>
+                          <div className="flex items-center gap-1 text-xs text-muted-foreground"><Users className="w-3 h-3" />{item.size}</div>
                         </div>
                       </button>
-
-                      {/* Hover tooltip */}
                       {hoveredInterest?.name === item.name && item.description && (
-                        <div className="absolute right-0 top-0 translate-x-full z-[60] w-64 bg-[#050B14] text-white p-4 shadow-xl ml-2 pointer-events-none">
+                        <div className="absolute right-0 top-0 translate-x-full z-[60] w-64 bg-brand-dark text-brand-foreground p-4 shadow-xl ml-2 pointer-events-none">
                           <h4 className="text-sm font-semibold mb-1 font-sans">{item.name}</h4>
-                          <p className="text-xs text-gray-300 mb-2 font-sans leading-relaxed">{item.description}</p>
-                          <div className="flex items-center gap-1 text-xs text-gray-400">
-                            <Users className="w-3 h-3" />
-                            <span>Audience: {item.size}</span>
-                          </div>
+                          <p className="text-xs text-brand-foreground/70 mb-2 font-sans leading-relaxed">{item.description}</p>
+                          <div className="flex items-center gap-1 text-xs text-brand-foreground/50"><Users className="w-3 h-3" /><span>Audience: {item.size}</span></div>
                         </div>
                       )}
                     </div>
                   ))
                 ) : (
-                  <div className="p-6 text-center text-sm text-gray-400 font-sans">
+                  <div className="p-6 text-center text-sm text-muted-foreground font-sans">
                     {query ? 'No matching interests found.' : 'Start typing to search interests…'}
                   </div>
                 )
               ) : (
-                /* Browse mode */
                 BROWSE_CATEGORIES.map((cat) => (
                   <div key={cat.name}>
-                    <button
-                      onClick={() => toggleCat(cat.name)}
-                      className="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50 border-b border-gray-100 transition-colors"
-                    >
-                      <span className="text-sm font-semibold text-gray-900 font-sans">{cat.name}</span>
-                      {expandedCats.has(cat.name) ? <ChevronDown className="w-4 h-4 text-gray-400" /> : <ChevronRight className="w-4 h-4 text-gray-400" />}
+                    <button onClick={() => toggleCat(cat.name)} className="w-full flex items-center justify-between px-4 py-3 hover:bg-muted border-b border-border/50 transition-colors">
+                      <span className="text-sm font-semibold text-foreground font-sans">{cat.name}</span>
+                      {expandedCats.has(cat.name) ? <ChevronDown className="w-4 h-4 text-muted-foreground" /> : <ChevronRight className="w-4 h-4 text-muted-foreground" />}
                     </button>
                     {expandedCats.has(cat.name) && cat.subcategories.map((sub) => (
-                      <div key={sub.name} className="bg-gray-50/50">
-                        <button
-                          onClick={() => toggleSub(sub.name)}
-                          className="w-full flex items-center justify-between px-6 py-2.5 hover:bg-gray-100 border-b border-gray-100 transition-colors"
-                        >
-                          <span className="text-xs font-medium text-gray-600 font-sans">{sub.name}</span>
-                          {expandedSubs.has(sub.name) ? <ChevronDown className="w-3 h-3 text-gray-400" /> : <ChevronRight className="w-3 h-3 text-gray-400" />}
+                      <div key={sub.name} className="bg-muted/50">
+                        <button onClick={() => toggleSub(sub.name)} className="w-full flex items-center justify-between px-6 py-2.5 hover:bg-muted border-b border-border/50 transition-colors">
+                          <span className="text-xs font-medium text-muted-foreground font-sans">{sub.name}</span>
+                          {expandedSubs.has(sub.name) ? <ChevronDown className="w-3 h-3 text-muted-foreground" /> : <ChevronRight className="w-3 h-3 text-muted-foreground" />}
                         </button>
                         {expandedSubs.has(sub.name) && sub.items.map((item) => (
                           <button
                             key={item.name}
                             onClick={() => addInterest(item)}
                             disabled={!!selected.find((s) => s.name === item.name)}
-                            className={`w-full text-left px-8 py-2.5 flex items-center justify-between border-b border-gray-100 transition-colors ${
-                              selected.find((s) => s.name === item.name) ? 'opacity-40 cursor-not-allowed bg-gray-50' : 'hover:bg-gray-100'
+                            className={`w-full text-left px-8 py-2.5 flex items-center justify-between border-b border-border/50 transition-colors ${
+                              selected.find((s) => s.name === item.name) ? 'opacity-40 cursor-not-allowed bg-muted' : 'hover:bg-muted'
                             }`}
                           >
-                            <span className="text-xs text-gray-700 font-sans">{item.name}</span>
-                            <span className="text-[10px] text-gray-400 font-sans">{item.size}</span>
+                            <span className="text-xs text-foreground/70 font-sans">{item.name}</span>
+                            <span className="text-[10px] text-muted-foreground font-sans">{item.size}</span>
                           </button>
                         ))}
                       </div>
@@ -275,18 +203,17 @@ export default function InterestTargeting({ selected, onChange }: InterestTarget
         )}
       </div>
 
-      {/* Estimated audience */}
       {estimatedSize && (
-        <div className="bg-gray-50 border border-gray-200 p-3 flex items-center justify-between">
+        <div className="bg-muted border border-border p-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Users className="w-4 h-4 text-[#34CC32]" />
-            <span className="text-sm font-medium text-gray-900 font-sans">Estimated Audience</span>
+            <Users className="w-4 h-4 text-brand" />
+            <span className="text-sm font-medium text-foreground font-sans">Estimated Audience</span>
           </div>
-          <span className="text-sm font-bold text-gray-900 font-sans">{estimatedSize}</span>
+          <span className="text-sm font-bold text-foreground font-sans">{estimatedSize}</span>
         </div>
       )}
 
-      <p className="text-xs text-gray-400 font-sans">Add interests, behaviors, or demographics to narrow your audience.</p>
+      <p className="text-xs text-muted-foreground font-sans">Add interests, behaviors, or demographics to narrow your audience.</p>
     </div>
   );
 }
