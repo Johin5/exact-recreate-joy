@@ -159,7 +159,7 @@ export default function LeadStep3AdCreative() {
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 bg-destructive rounded-full flex items-center justify-center text-destructive-foreground text-xs font-bold">M</div>
                   <div>
-                    <h4 className="text-xs font-bold text-info font-sans">Mahindra</h4>
+                    <h4 className="text-xs font-bold text-[#1877F2] font-sans">Mahindra</h4>
                     <p className="text-[10px] text-muted-foreground font-sans">Sponsored</p>
                   </div>
                 </div>
