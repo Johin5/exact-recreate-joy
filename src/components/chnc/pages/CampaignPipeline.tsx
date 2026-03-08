@@ -144,7 +144,7 @@ export default function CampaignPipeline({ onLaunchCampaign }: CampaignPipelineP
           </thead>
           <tbody>
             {filtered.map((campaign) => (
-              <tr key={campaign.id} className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+              <tr key={campaign.id} onClick={() => onLaunchCampaign(campaign)} className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors cursor-pointer">
                 <td className="px-4 py-4">
                   <input
                     type="checkbox"
