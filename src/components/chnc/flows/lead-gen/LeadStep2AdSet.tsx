@@ -13,6 +13,9 @@ export default function LeadStep2AdSet() {
   const [budgetAmount, setBudgetAmount] = useState('200');
   const [startDate, setStartDate] = useState('2025-03-15');
   const [endDate, setEndDate] = useState('2025-04-15');
+  const [selectedPixel, setSelectedPixel] = useState('pixel_mahindra');
+  const [conversionEvent, setConversionEvent] = useState('lead');
+  const [capiEnabled, setCapiEnabled] = useState(true);
 
   const [ageMin, setAgeMin] = useState('25');
   const [ageMax, setAgeMax] = useState('55');
