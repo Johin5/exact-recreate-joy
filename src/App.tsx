@@ -6,6 +6,7 @@ import CampaignTemplates from './components/chnc/pages/CampaignTemplates';
 import QuickLaunch from './components/chnc/flows/QuickLaunch';
 import LeadGenFlow from './components/chnc/flows/LeadGenFlow';
 import CampaignContent from './components/chnc/CampaignContent';
+import AwarenessFlow from './components/chnc/flows/AwarenessFlow';
 import Planner from './components/chnc/pages/Planner';
 import Inbox from './components/chnc/pages/Inbox';
 
@@ -44,6 +45,8 @@ export default function App() {
         return <Inbox />;
       case 'amp-setup':
         return <LeadGenFlow />;
+      case 'amp-awareness':
+        return <AwarenessFlow />;
       case 'amp-templates':
         return <CampaignTemplates onSelectTemplate={handleSelectTemplate} />;
       case 'amp-quick':
