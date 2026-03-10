@@ -45,6 +45,8 @@ export default function App() {
         return <Inbox />;
       case 'amp-setup':
         return <LeadGenFlow />;
+      case 'amp-awareness':
+        return <AwarenessFlow />;
       case 'amp-templates':
         return <CampaignTemplates onSelectTemplate={handleSelectTemplate} />;
       case 'amp-quick':

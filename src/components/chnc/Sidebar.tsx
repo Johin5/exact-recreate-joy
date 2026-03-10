@@ -10,6 +10,7 @@ const menuItems = [
   { icon: PenTool, label: 'CREATEIT', id: 'createit', hasSubmenu: true },
   { icon: Megaphone, label: 'AMPLIFYIT', id: 'amplifyit', submenu: [
     { label: 'CAMPAIGN - LEADS', id: 'amp-setup' },
+    { label: 'CAMPAIGN - AWARENESS', id: 'amp-awareness' },
     { label: 'CAMPAIGN PIPELINE', id: 'amp-mgmt' },
     { label: 'DETAILED SETUP', id: 'amp-insight' },
   ]},
