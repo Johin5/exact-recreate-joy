@@ -54,6 +54,8 @@ export default function App() {
         return <QuickLaunch campaign={selectedCampaign} />;
       case 'amp-mgmt':
         return <CampaignPipeline onLaunchCampaign={handleLaunchCampaign} />;
+      case 'amp-campaign-mgmt':
+        return <CampaignManagement />;
       case 'amp-insight':
         return <CampaignContent />;
       default:

@@ -12,6 +12,7 @@ const menuItems = [
     { label: 'CAMPAIGN - LEADS', id: 'amp-setup' },
     { label: 'CAMPAIGN - AWARENESS', id: 'amp-awareness' },
     { label: 'CAMPAIGN PIPELINE', id: 'amp-mgmt' },
+    { label: 'CAMPAIGN MANAGEMENT', id: 'amp-campaign-mgmt' },
     { label: 'DETAILED SETUP', id: 'amp-insight' },
   ]},
   { icon: LayoutGrid, label: 'SOCIALISEIT', id: 'socialiseit', submenu: [
