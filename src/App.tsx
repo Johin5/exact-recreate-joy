@@ -9,11 +9,13 @@ import CampaignContent from './components/chnc/CampaignContent';
 import AwarenessFlow from './components/chnc/flows/AwarenessFlow';
 import Planner from './components/chnc/pages/Planner';
 import Inbox from './components/chnc/pages/Inbox';
-import CampaignManagement from './components/chnc/pages/CampaignManagement';
+import CampaignManagement, { ManagedCampaign } from './components/chnc/pages/CampaignManagement';
+import CampaignDetail from './components/chnc/pages/CampaignDetail';
 
 export default function App() {
   const [activePage, setActivePage] = useState('amp-mgmt');
   const [selectedCampaign, setSelectedCampaign] = useState<CampaignItem | null>(null);
+  const [selectedManagedCampaign, setSelectedManagedCampaign] = useState<ManagedCampaign | null>(null);
 
   const handleLaunchCampaign = (campaign: CampaignItem) => {
     setSelectedCampaign(campaign);
@@ -25,7 +27,6 @@ export default function App() {
   };
 
   const handleSelectTemplate = (templateId: string) => {
-    // Lead gen template → dedicated flow; others → quick launch
     if (templateId === 'meta-lead-gen') {
       setActivePage('amp-setup');
     } else {
@@ -36,6 +37,12 @@ export default function App() {
   const handleNavigate = (pageId: string) => {
     setActivePage(pageId);
     if (pageId !== 'amp-setup') setSelectedCampaign(null);
+    if (pageId !== 'amp-campaign-detail') setSelectedManagedCampaign(null);
+  };
+
+  const handleSelectManagedCampaign = (campaign: ManagedCampaign) => {
+    setSelectedManagedCampaign(campaign);
+    setActivePage('amp-campaign-detail');
   };
 
   const renderContent = () => {
@@ -55,7 +62,13 @@ export default function App() {
       case 'amp-mgmt':
         return <CampaignPipeline onLaunchCampaign={handleLaunchCampaign} />;
       case 'amp-campaign-mgmt':
-        return <CampaignManagement />;
+        return <CampaignManagement onSelectCampaign={handleSelectManagedCampaign} />;
+      case 'amp-campaign-detail':
+        return selectedManagedCampaign ? (
+          <CampaignDetail campaign={selectedManagedCampaign} onBack={() => handleNavigate('amp-campaign-mgmt')} />
+        ) : (
+          <CampaignManagement onSelectCampaign={handleSelectManagedCampaign} />
+        );
       case 'amp-insight':
         return <CampaignContent />;
       default:
