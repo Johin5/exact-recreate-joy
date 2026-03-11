@@ -9,6 +9,7 @@ import CampaignContent from './components/chnc/CampaignContent';
 import AwarenessFlow from './components/chnc/flows/AwarenessFlow';
 import Planner from './components/chnc/pages/Planner';
 import Inbox from './components/chnc/pages/Inbox';
+import CampaignManagement from './components/chnc/pages/CampaignManagement';
 
 export default function App() {
   const [activePage, setActivePage] = useState('amp-mgmt');
