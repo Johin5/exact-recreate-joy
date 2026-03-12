@@ -11,6 +11,7 @@ import Planner from './components/chnc/pages/Planner';
 import Inbox from './components/chnc/pages/Inbox';
 import CampaignManagement, { ManagedCampaign } from './components/chnc/pages/CampaignManagement';
 import CampaignDetail from './components/chnc/pages/CampaignDetail';
+import ExpressLaunch from './components/chnc/flows/ExpressLaunch';
 
 export default function App() {
   const [activePage, setActivePage] = useState('amp-mgmt');
