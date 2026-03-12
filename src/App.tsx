@@ -11,11 +11,13 @@ import Planner from './components/chnc/pages/Planner';
 import Inbox from './components/chnc/pages/Inbox';
 import CampaignManagement, { ManagedCampaign } from './components/chnc/pages/CampaignManagement';
 import CampaignDetail from './components/chnc/pages/CampaignDetail';
+import ExpressLaunch from './components/chnc/flows/ExpressLaunch';
 
 export default function App() {
   const [activePage, setActivePage] = useState('amp-mgmt');
   const [selectedCampaign, setSelectedCampaign] = useState<CampaignItem | null>(null);
   const [selectedManagedCampaign, setSelectedManagedCampaign] = useState<ManagedCampaign | null>(null);
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string | null>(null);
 
   const handleLaunchCampaign = (campaign: CampaignItem) => {
     setSelectedCampaign(campaign);
@@ -27,17 +29,15 @@ export default function App() {
   };
 
   const handleSelectTemplate = (templateId: string) => {
-    if (templateId === 'meta-lead-gen') {
-      setActivePage('amp-setup');
-    } else {
-      setActivePage('amp-quick');
-    }
+    setSelectedTemplateId(templateId);
+    setActivePage('amp-express');
   };
 
   const handleNavigate = (pageId: string) => {
     setActivePage(pageId);
     if (pageId !== 'amp-setup') setSelectedCampaign(null);
     if (pageId !== 'amp-campaign-detail') setSelectedManagedCampaign(null);
+    if (pageId !== 'amp-express') setSelectedTemplateId(null);
   };
 
   const handleSelectManagedCampaign = (campaign: ManagedCampaign) => {
@@ -59,6 +59,8 @@ export default function App() {
         return <CampaignTemplates onSelectTemplate={handleSelectTemplate} />;
       case 'amp-quick':
         return <QuickLaunch campaign={selectedCampaign} />;
+      case 'amp-express':
+        return <ExpressLaunch templateId={selectedTemplateId || 'meta-awareness'} onBack={() => handleNavigate('amp-templates')} />;
       case 'amp-mgmt':
         return <CampaignPipeline onLaunchCampaign={handleLaunchCampaign} />;
       case 'amp-campaign-mgmt':
