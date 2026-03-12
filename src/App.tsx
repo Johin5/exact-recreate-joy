@@ -29,11 +29,8 @@ export default function App() {
   };
 
   const handleSelectTemplate = (templateId: string) => {
-    if (templateId === 'meta-lead-gen') {
-      setActivePage('amp-setup');
-    } else {
-      setActivePage('amp-quick');
-    }
+    setSelectedTemplateId(templateId);
+    setActivePage('amp-express');
   };
 
   const handleNavigate = (pageId: string) => {
