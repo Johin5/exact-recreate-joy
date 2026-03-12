@@ -17,6 +17,7 @@ export default function App() {
   const [activePage, setActivePage] = useState('amp-mgmt');
   const [selectedCampaign, setSelectedCampaign] = useState<CampaignItem | null>(null);
   const [selectedManagedCampaign, setSelectedManagedCampaign] = useState<ManagedCampaign | null>(null);
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string | null>(null);
 
   const handleLaunchCampaign = (campaign: CampaignItem) => {
     setSelectedCampaign(campaign);
