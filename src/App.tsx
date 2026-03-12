@@ -37,6 +37,7 @@ export default function App() {
     setActivePage(pageId);
     if (pageId !== 'amp-setup') setSelectedCampaign(null);
     if (pageId !== 'amp-campaign-detail') setSelectedManagedCampaign(null);
+    if (pageId !== 'amp-express') setSelectedTemplateId(null);
   };
 
   const handleSelectManagedCampaign = (campaign: ManagedCampaign) => {
