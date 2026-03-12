@@ -59,6 +59,8 @@ export default function App() {
         return <CampaignTemplates onSelectTemplate={handleSelectTemplate} />;
       case 'amp-quick':
         return <QuickLaunch campaign={selectedCampaign} />;
+      case 'amp-express':
+        return <ExpressLaunch templateId={selectedTemplateId || 'meta-awareness'} onBack={() => handleNavigate('amp-templates')} />;
       case 'amp-mgmt':
         return <CampaignPipeline onLaunchCampaign={handleLaunchCampaign} />;
       case 'amp-campaign-mgmt':
