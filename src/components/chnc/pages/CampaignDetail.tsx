@@ -104,16 +104,20 @@ export default function CampaignDetail({ campaign, onBack }: CampaignDetailProps
       {/* KPI Cards */}
       <div className="grid grid-cols-5 gap-4 mb-8">
         {kpiCards.map(kpi => (
-          <div key={kpi.label} className="bg-card border border-border p-5">
-            <div className="flex items-center justify-between mb-3">
-              <kpi.icon className="w-5 h-5 text-muted-foreground" />
-              <span className={`text-xs font-semibold flex items-center gap-1 ${kpi.up ? 'text-brand' : 'text-destructive'}`}>
-                {kpi.up ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                {kpi.trend}
+          <div key={kpi.label} className="bg-card border border-border p-5 flex flex-col justify-between min-h-[120px]">
+            <div className="flex items-start justify-between">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground font-saira-condensed">{kpi.label}</span>
+              <span className="w-8 h-8 rounded-full bg-brand flex items-center justify-center">
+                <kpi.icon className="w-4 h-4 text-brand-foreground" />
               </span>
             </div>
-            <div className="text-2xl font-bold text-foreground font-sans">{kpi.value}</div>
-            <div className="text-xs text-muted-foreground mt-1 font-sans">{kpi.label}</div>
+            <div className="flex items-end justify-between mt-auto">
+              <span className="text-3xl font-bold text-foreground font-sans leading-none">{kpi.value}</span>
+              <span className={`text-[11px] font-semibold flex items-center gap-1 px-2 py-0.5 ${kpi.up ? 'text-brand bg-brand/10' : 'text-destructive bg-destructive/10'}`}>
+                {kpi.trend}
+                {kpi.up ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+              </span>
+            </div>
           </div>
         ))}
       </div>
