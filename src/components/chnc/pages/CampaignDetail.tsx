@@ -104,7 +104,7 @@ export default function CampaignDetail({ campaign, onBack }: CampaignDetailProps
       {/* KPI Cards */}
       <div className="grid grid-cols-5 gap-4 mb-8">
         {kpiCards.map(kpi => (
-          <div key={kpi.label} className="bg-card border border-border p-5 flex flex-col justify-between min-h-[120px]">
+          <div key={kpi.label} className="bg-card border border-border p-[18px] flex flex-col justify-between w-[171px] h-[119px]">
             <div className="flex items-start justify-between">
               <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground font-saira-condensed">{kpi.label}</span>
               <span className="w-8 h-8 rounded-full bg-brand flex items-center justify-center">
